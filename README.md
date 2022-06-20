@@ -6,8 +6,10 @@ Niewielki system kontroli wydatków.
 ------------------
 Uwzględnione funkcjonalności:
 
-* Typ: Wydatek
-* Taksonomia: Gatunek
+* CPT: Wydatek
+* CPT: Zarobek
+* Taksonomia: Typ
+* Taksonomia: Grupa
 
 ------------------
 ## Informacje dodatkowe
