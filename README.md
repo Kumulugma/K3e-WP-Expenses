@@ -16,3 +16,11 @@ Uwzględnione funkcjonalności:
 
 System dedykowany uproszczonej kontroli wydatków.
 
+------------------
+## Wersje
+
+0.0.1b
+- Poprawka w CPT.
+
+0.0.1b
+- Podstawowe elementy.

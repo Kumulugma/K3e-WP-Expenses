@@ -34,23 +34,23 @@ class Expense {
               99 – Separator
              */
 
-            add_action('admin_init', 'expenses_plugin_settings');
+//            add_action('admin_init', 'expenses_plugin_settings');
         }
 
-        function expenses_plugin_settings() {
-            register_setting(WeatherSynchronizer::WEATHER_API_KEY_LABEL, WeatherSynchronizer::WEATHER_API_KEY_OPTION);
-        }
+//        function expenses_plugin_settings() {
+//            register_setting(WeatherSynchronizer::WEATHER_API_KEY_LABEL, WeatherSynchronizer::WEATHER_API_KEY_OPTION);
+//        }
 
         function expenses_content() {
             include plugin_dir_path(__FILE__) . 'templates/index.php';
         }
 
-        Expenses::save();
+        Expense::save();
     }
 
     public static function save() {
-        if (isset($_POST['Expenses'])) {
-            if (isset($_POST['Expenses']['synchronise'])) {
+        if (isset($_POST['Expense'])) {
+            if (isset($_POST['Expense']['synchronise'])) {
                 
             }
             wp_redirect('admin.php?page=' . $_GET['page']);
