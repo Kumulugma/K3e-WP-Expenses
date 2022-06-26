@@ -36,7 +36,7 @@ function expense() {
 		'label'                 => __( 'Wydatek', 'k3e' ),
 		'description'           => __( 'Wpisy zawierający informacje na temat wydatków', 'k3e' ),
 		'labels'                => $labels,
-		'supports'              => array( 'title', 'thumbnail', 'post-formats' ),
+		'supports'              => array( 'title', 'post-formats' ),
 		'taxonomies'            => array( 'expense_type', 'expense_field' ),
 		'hierarchical'          => false,
 		'public'                => true,

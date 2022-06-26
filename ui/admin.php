@@ -45,16 +45,34 @@ class Expense {
             include plugin_dir_path(__FILE__) . 'templates/index.php';
         }
 
-        Expense::save();
-    }
-
-    public static function save() {
-        if (isset($_POST['Expense'])) {
-            if (isset($_POST['Expense']['synchronise'])) {
-                
-            }
-            wp_redirect('admin.php?page=' . $_GET['page']);
+        function price_expense_meta_box() {
+            add_meta_box("process-meta-box", "Kwota", "price_expense_box_markup", "expense", "normal", "high", null);
         }
+
+        add_action("add_meta_boxes", "price_expense_meta_box");
+
+        function price_expense_box_markup($object) {
+            include plugin_dir_path(__FILE__) . 'templates/expense/form.php';
+        }
+
+        function k3e_save_meta_box($post_id) {
+            if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
+                return;
+            if ($parent_id = wp_is_post_revision($post_id)) {
+                $post_id = $parent_id;
+            }
+            $fields = [
+                'expense_transaction_date',
+                'expense_transaction_price',
+            ];
+            foreach ($fields as $field) {
+                if (array_key_exists($field, $_POST)) {
+                    update_post_meta($post_id, $field, sanitize_text_field($_POST[$field]));
+                }
+            }
+        }
+
+        add_action('save_post', 'k3e_save_meta_box');
     }
 
 }
