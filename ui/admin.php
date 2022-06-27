@@ -111,6 +111,7 @@ class Expense {
             $fields = [
                 'income_transaction_date',
                 'income_transaction_price',
+                'income_transaction_content',
             ];
             foreach ($fields as $field) {
                 if (array_key_exists($field, $_POST)) {

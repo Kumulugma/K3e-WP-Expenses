@@ -10,6 +10,7 @@ Uwzględnione funkcjonalności:
 * CPT: Zarobek
 * Taksonomia: Typ
 * Taksonomia: Grupa
+* Taksonomia: Kupcy
 
 ------------------
 ## Informacje dodatkowe
@@ -18,6 +19,9 @@ System dedykowany uproszczonej kontroli wydatków.
 
 ------------------
 ## Wersje
+0.0.2b
+- Podsumowanie transakcji.
+
 0.0.2a
 - Lista przepływu.
 
