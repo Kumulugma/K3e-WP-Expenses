@@ -1,52 +1,59 @@
 <div class="wrap" id="configuration-page">
     <h1 class="wp-heading-inline">
-        <?php esc_html_e('Konfiguracja', 'weather'); ?>
+        <?php esc_html_e('Tablica przepływu', 'k3e'); ?>
     </h1>
 
 
     <div id="dashboard-widgets-wrap">
         <div id="dashboard-widgets" class="metabox-holder">
-            <div class="postbox-container" width="25%">
-                <div class="card" style="margin:2px">
-                    <form method="POST" action="options.php">  
-                        <?php settings_fields(WeatherSynchronizer::WEATHER_API_KEY_LABEL); ?>
-                        <?php do_settings_sections(WeatherSynchronizer::WEATHER_API_KEY_LABEL); ?>
-                        <table class="widefat importers striped" style="width:100%">
-                            <thead><tr><th colspan="2">Klucz Api OpenWeather</th></tr></thead>
-                            <tbody>
-                                <tr colspan='2' class="importer-item">
-                                    <td class="import-system">
-                                        <input type="text" name="<?= WeatherSynchronizer::WEATHER_API_KEY_OPTION?>" class="regular-text ltr" value="<?= WeatherSynchronizer::getApiKey() ?>"/> 
-                                    </td>
+            <div class="postbox-container" style="width:100%;">
+                <div class="card" style="max-width: none; margin:2px">
+                    <?php
+                    $args1 = array(
+                        'post_type' => 'expense',
+                        'order' => 'ASC',
+                    );
+                    
+                    $args2 = array(
+                        'post_type' => 'income',
+                        'order' => 'ASC',
+                    );
+
+                    $expenses = new WP_Query($args1);
+                    $incomes = new WP_Query($args2);
+                    ?>
+                    <table id="expenses" class="display" style="width:100%" data-counter="<?= $expenses->found_posts + $incomes->found_posts ?>">
+                        <thead>
+                            <tr>
+                                <th style="text-align: left;">Wpis</th>
+                                <th style="text-align: left;">Kwota</th>
+                                <th style="text-align: left;">Data</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php while ($expenses->have_posts()) : $expenses->the_post(); ?>
+                                <tr>
+                                    <td><a href="/wp-admin/post.php?action=edit&post=<?= get_the_ID() ?>" style="text-decoration: none;"><?= get_the_title() ?></a></td>
+                                    <td><span style="color: #b32d2e">- <?= get_post_meta(get_the_ID(), 'expense_transaction_price', true) ?></span></td>
+                                    <td><?= get_post_meta(get_the_ID(), 'expense_transaction_date', true)?:'0000-00-00' ?></td>
                                 </tr>
-                                <tr class="importer-item">
-                                    <td colspan='2' class="import-system">
-                                        <?php submit_button(__('Zapisz', 'weather'), 'primary', 'submit', false); ?> 
-                                    </td>
+                            <?php endwhile; ?>
+                            <?php while ($incomes->have_posts()) : $incomes->the_post(); ?>
+                                <tr>
+                                    <td><a href="/wp-admin/post.php?action=edit&post=<?= get_the_ID() ?>" style="text-decoration: none;"><?= get_the_title() ?></a></td>
+                                    <td><span style="color: #119C38">+ <?= get_post_meta(get_the_ID(), 'income_transaction_price', true) ?></span></td>
+                                    <td><?= get_post_meta(get_the_ID(), 'income_transaction_date', true)?:'0000-00-00' ?></td>
                                 </tr>
-                            </tbody>
-                        </table>
-                    </form> 
-                </div>
-            </div>
-            <div class="postbox-container" width="25%">
-                <div class="card" style="margin:2px">
-                    <form method="POST">  
-                        <table class="widefat importers striped" style="width:100%">
-                            <thead><tr><th colspan="2">Ręczna synchronizacja</th></tr></thead>
-                            <tbody>
-                                <tr class="importer-item">
-                                    <td class="import-system"><?= __('Data ostatniej synchronizacji', 'weather') ?></td>
-                                    <td class="desc"><?= WeatherSynchronizer::getLastSynchro() ?></td>
-                                </tr>
-                                <tr class="importer-item">
-                                    <td colspan='2' class="import-system">
-                                        <?php submit_button(__('Pobierz nowe wartości', 'weather'), 'primary', 'Weather[synchronise]', false); ?> 
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </form> 
+                            <?php endwhile; ?>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th style="text-align: left;">Wpis</th>
+                                <th style="text-align: left;">Kwota</th>
+                                <th style="text-align: left;">Data</th>
+                            </tr>
+                        </tfoot>
+                    </table>
                 </div>
             </div>
         </div>

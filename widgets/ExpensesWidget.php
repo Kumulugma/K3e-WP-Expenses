@@ -35,7 +35,7 @@ class ExpensesWidget {
                         while ($loop->have_posts()) : $loop->the_post();
                             echo "<tr>";
                             echo '<td>';
-                            echo '<a href=/wp-admin/post.php?action=edit&post=' . get_the_ID() . ' style="text-decoration: none;"> ' . get_the_title() . '</a>';
+                            echo '<a href="/wp-admin/post.php?action=edit&post=' . get_the_ID() . '" style="text-decoration: none;"> ' . get_the_title() . '</a>';
                             echo '</td>';
                             echo '<td>';
                             echo get_post_meta(get_the_ID(), 'expense_transaction_price', true);

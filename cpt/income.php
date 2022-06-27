@@ -37,7 +37,7 @@ function income() {
         'description' => __('Wpisy zawierający informacje na temat zarobków', 'k3e'),
         'labels' => $labels,
         'supports' => array('title', 'post-formats'),
-        'taxonomies' => array('expense_type', 'expense_field'),
+        'taxonomies' => array('expense_type', 'expense_field', 'buyer'),
         'hierarchical' => false,
         'public' => true,
         'show_ui' => true,

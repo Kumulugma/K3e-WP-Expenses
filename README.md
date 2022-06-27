@@ -18,6 +18,9 @@ System dedykowany uproszczonej kontroli wydatków.
 
 ------------------
 ## Wersje
+0.0.2a
+- Lista przepływu.
+
 0.0.1c
 - Pola meta w CPT.
 - Podstawowoe widgety w dashboardzie.

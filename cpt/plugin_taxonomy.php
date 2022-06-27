@@ -81,3 +81,43 @@ function expense_field() {
 }
 
 add_action('init', 'expense_field', 0);
+
+// Register Custom Taxonomy
+function buyer() {
+
+	$labels = array(
+		'name'                       => _x( 'Kupcy', 'Taxonomy General Name', 'k3e' ),
+		'singular_name'              => _x( 'Kupiec', 'Taxonomy Singular Name', 'k3e' ),
+		'menu_name'                  => __( 'Kupcy', 'k3e' ),
+		'all_items'                  => __( 'Wszyscy kupcy', 'k3e' ),
+		'parent_item'                => __( 'Kupiec nadrzędny', 'k3e' ),
+		'parent_item_colon'          => __( 'Kupiec nadrzędny:', 'k3e' ),
+		'new_item_name'              => __( 'Nazwa nowego kupca', 'k3e' ),
+		'add_new_item'               => __( 'Dodaj nowego kupca', 'k3e' ),
+		'edit_item'                  => __( 'Edytuj kupca', 'k3e' ),
+		'update_item'                => __( 'Aktualizuj kupca', 'k3e' ),
+		'view_item'                  => __( 'Zobacz kupca', 'k3e' ),
+		'separate_items_with_commas' => __( 'Oddziel kupców przecinkami', 'k3e' ),
+		'add_or_remove_items'        => __( 'Dodaj lub usuń kupca', 'k3e' ),
+		'choose_from_most_used'      => __( 'Wybierz z najczęściej używanych', 'k3e' ),
+		'popular_items'              => __( 'Popularni kupcy', 'k3e' ),
+		'search_items'               => __( 'Szukaj kupca', 'k3e' ),
+		'not_found'                  => __( 'Brak kupców', 'k3e' ),
+		'no_terms'                   => __( 'Brak kupców', 'k3e' ),
+		'items_list'                 => __( 'Lista kupców', 'k3e' ),
+		'items_list_navigation'      => __( 'Lista kupców', 'k3e' ),
+	);
+	$args = array(
+		'labels'                     => $labels,
+		'hierarchical'               => true,
+		'public'                     => true,
+		'show_ui'                    => true,
+		'show_admin_column'          => true,
+		'show_in_nav_menus'          => true,
+		'show_tagcloud'              => true,
+		'show_in_rest'               => false,
+	);
+	register_taxonomy( 'buyer', array( 'income' ), $args );
+
+}
+add_action( 'init', 'buyer', 0 );

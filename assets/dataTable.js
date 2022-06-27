@@ -1,5 +1,5 @@
 jQuery(document).ready(function () {
-    var table = jQuery('#process-steps').DataTable(
+    var table = jQuery('#expenses').DataTable(
             {
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/1.11.5/i18n/pl.json"
@@ -7,7 +7,8 @@ jQuery(document).ready(function () {
                 "columnDefs": [{
                         "targets": 1,
                         "orderable": false
-                    }]
+                    }],
+                order: [[2, 'desc']]
             });
 
     var counter = jQuery('#process-steps').data('counter');
@@ -22,17 +23,4 @@ jQuery(document).ready(function () {
         }
     });
 
-    jQuery('#proces-step-remove').click(function () {
-        event.preventDefault();
-        table.row('.selected').remove().draw(false);
-    });
-
-    jQuery('#addRow').click(function () {
-        event.preventDefault();
-        counter++;
-        table.row.add([
-            counter,
-            '<input name="step[]" class="" type="text" size="140" value=""/>'
-        ]).draw(false);
-    });
 });
