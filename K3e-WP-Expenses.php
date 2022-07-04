@@ -8,7 +8,7 @@
   Author URI: https://www.k3e.pl/
   Text Domain:
   Domain Path:
-  Version: 0.0.2b
+  Version: 0.0.2c
  */
 require_once 'cpt/expense.php';
 require_once 'cpt/income.php';

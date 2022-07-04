@@ -158,7 +158,7 @@ class ExpensesWidget {
 
                             $loop = new WP_Query($args);
                             while ($loop->have_posts()) : $loop->the_post();
-                                if (date('Y-m-d') <= get_post_meta(get_the_ID(), 'income_transaction_date', true)) {
+                                if ($date->format('Y-m-d') <= get_post_meta(get_the_ID(), 'income_transaction_date', true)) {
                                     $month += get_post_meta(get_the_ID(), 'income_transaction_price', true);
                                 }
                                 $year += get_post_meta(get_the_ID(), 'income_transaction_price', true);
@@ -177,7 +177,8 @@ class ExpensesWidget {
 
                             $loop = new WP_Query($args);
                             while ($loop->have_posts()) : $loop->the_post();
-                                if (date('Y-m-d') <= get_post_meta(get_the_ID(), 'expense_transaction_date', true)) {
+                                $date = new \DateTime('-30 days');
+                                if ($date->format('Y-m-d') <= get_post_meta(get_the_ID(), 'expense_transaction_date', true)) {
                                     $month -= get_post_meta(get_the_ID(), 'expense_transaction_price', true);
                                 }
                                 $year -= get_post_meta(get_the_ID(), 'expense_transaction_price', true);

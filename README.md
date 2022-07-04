@@ -19,6 +19,9 @@ System dedykowany uproszczonej kontroli wydatków.
 
 ------------------
 ## Wersje
+0.0.2c
+- Poprawka do obliczania ostatnich 30dni.
+
 0.0.2b
 - Podsumowanie transakcji.
 
