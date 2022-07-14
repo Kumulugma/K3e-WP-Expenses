@@ -19,6 +19,10 @@ System dedykowany uproszczonej kontroli wydatków.
 
 ------------------
 ## Wersje
+0.1.0a
+- Przebudowa struktury.
+- Obsługa załączników.
+
 0.0.2c
 - Poprawka do obliczania ostatnich 30dni.
 

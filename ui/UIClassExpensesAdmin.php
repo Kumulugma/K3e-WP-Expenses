@@ -1,6 +1,6 @@
 <?php
 
-class Expense {
+class UIClassExpensesAdmin extends UIClassExpenses {
 
     public static function run() {
 
@@ -33,21 +33,16 @@ class Expense {
               80 – Settings
               99 – Separator
              */
-
-//            add_action('admin_init', 'expenses_plugin_settings');
         }
 
-        Expense::ExpenseBox();
-        Expense::IncomeBox();
-
-//        function expenses_plugin_settings() {
-//            register_setting(WeatherSynchronizer::WEATHER_API_KEY_LABEL, WeatherSynchronizer::WEATHER_API_KEY_OPTION);
-//        }
+        UIClassExpensesAdmin::AttachmentBox();
+        UIClassExpensesAdmin::ExpenseBox();
+        UIClassExpensesAdmin::IncomeBox();
 
         function expenses_content() {
 
-            Expense::List();
-            include plugin_dir_path(__FILE__) . 'templates/index.php';
+            UIClassExpensesAdmin::List();
+            include plugin_dir_path(__FILE__) . 'admin/templates/index.php';
         }
 
     }
@@ -67,7 +62,7 @@ class Expense {
         add_action("add_meta_boxes", "price_expense_meta_box");
 
         function price_expense_box_markup($object) {
-            include plugin_dir_path(__FILE__) . 'templates/expense/form.php';
+            include plugin_dir_path(__FILE__) . 'admin/templates/expense/form.php';
         }
 
         function k3e_expense_save_meta_box($post_id) {
@@ -99,7 +94,7 @@ class Expense {
         add_action("add_meta_boxes", "price_income_meta_box");
 
         function price_income_box_markup($object) {
-            include plugin_dir_path(__FILE__) . 'templates/income/form.php';
+            include plugin_dir_path(__FILE__) . 'admin/templates/income/form.php';
         }
 
         function k3e_income_save_meta_box($post_id) {
@@ -121,6 +116,75 @@ class Expense {
         }
 
         add_action('save_post', 'k3e_income_save_meta_box');
+    }
+
+    public static function AttachmentBox() {
+
+        add_action("add_meta_boxes", "attachments_meta_box");
+
+        function attachments_meta_box() {
+            add_meta_box("expanse-attachments-meta-box", __('Dodatkowe pliki', 'k3e'), "attachments_box_markup", 'income', "normal", "high", null);
+            add_meta_box("expanse-attachments-meta-box", __('Dodatkowe pliki', 'k3e'), "attachments_box_markup", 'expense', "normal", "high", null);
+        }
+
+        function attachments_box_markup($object) {
+            wp_enqueue_media();
+            wp_enqueue_script('K3e-Attachments', plugin_dir_url(__FILE__) . '../assets/k3e-attachments.js', array('jquery'), '0.1');
+            wp_enqueue_style('Font-Awesome', plugin_dir_url(__FILE__) . "../node_modules/font-awesome/css/font-awesome.min.css");
+
+            include plugin_dir_path(__FILE__) . 'admin/templates/attachments/form.php';
+        }
+
+        function k3e_attachments_save_meta_box($post_id) {
+            if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)
+                return;
+            if ($parent_id = wp_is_post_revision($post_id)) {
+                $post_id = $parent_id;
+            }
+
+            $fields = [
+                'post_attachments',
+            ];
+            foreach ($fields as $field) {
+                if (array_key_exists($field, $_POST)) {
+                    update_post_meta($post_id, $field, serialize(sanitize_text_field($_POST[$field])));
+                }
+            }
+        }
+
+        add_action('save_post', 'k3e_attachments_save_meta_box');
+
+        add_action('wp_ajax_expanses_get_attachments', 'expanses_get_post_attachments');
+
+        function expanses_get_post_attachments() {
+            if (isset($_GET['id'])) {
+
+                $ids = explode(",", $_GET['id']);
+                $attachments = [];
+
+                foreach ($ids as $id) {
+
+                    switch (get_post_mime_type($id)) {
+                        case 'application/pdf':
+                            $attachments[] = '<a href="post.php?post=' . $id . '&action=edit"><i class="fa fa-file-pdf-o" aria-hidden="true" style="font-size: 4em;"></i></a>';
+                            break;
+                        case 'image/jpeg':
+                            $attachments[] = '<a href="post.php?post=' . $id . '&action=edit"><i class="fa fa-file-image-o" aria-hidden="true" style="font-size: 4em;"></i></a>';
+                            break;
+                        default:
+                            $attachments[] = '<a href="post.php?post=' . $id . '&action=edit"><i class="fa fa-file" aria-hidden="true" style="font-size: 4em;"></i></a>';
+                            break;
+                    }
+                }
+                $data = array(
+                    'attachments' => $attachments
+                );
+                wp_send_json_success($data);
+            } else {
+                wp_send_json_error();
+            }
+        }
+
     }
 
 }

@@ -10,17 +10,4 @@ jQuery(document).ready(function () {
                     }],
                 order: [[2, 'desc']]
             });
-
-    var counter = jQuery('#process-steps').data('counter');
-
-
-    jQuery('#process-steps tbody').on('click', 'tr', function () {
-        if (jQuery(this).hasClass('selected')) {
-            jQuery(this).removeClass('selected');
-        } else {
-            table.$('tr.selected').removeClass('selected');
-            jQuery(this).addClass('selected');
-        }
-    });
-
 });
