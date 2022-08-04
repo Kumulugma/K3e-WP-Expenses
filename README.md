@@ -1,3 +1,8 @@
+<p align="center">
+    <a href="https://k3e.pl" target="_blank">
+        <img src="https://k3e.pl/wp-content/uploads/2022/07/logo-pasek.png" height="80px">
+    </a>
+</p>
 
 # K3e - Licznik wydatków
 
@@ -18,26 +23,4 @@ Uwzględnione funkcjonalności:
 System dedykowany uproszczonej kontroli wydatków.
 
 ------------------
-## Wersje
-0.1.0a
-- Przebudowa struktury.
-- Obsługa załączników.
-
-0.0.2c
-- Poprawka do obliczania ostatnich 30dni.
-
-0.0.2b
-- Podsumowanie transakcji.
-
-0.0.2a
-- Lista przepływu.
-
-0.0.1c
-- Pola meta w CPT.
-- Podstawowoe widgety w dashboardzie.
-
-0.0.1b
-- Poprawka w CPT.
-
-0.0.1b
-- Podstawowe elementy.
+[Wersje](https://k3e.pl/k3eplugins/k3e-wp-expenses/)
